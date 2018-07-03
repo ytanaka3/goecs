@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: goapi_db
+
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db           # Don't forget to set as host: db in env.yml.
+    command: /bin/sh -c "go run main.go"
